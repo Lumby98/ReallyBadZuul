@@ -1,3 +1,6 @@
+
+import java.util.Set;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -57,24 +60,68 @@ public class Game
         r15 = new Room("in a room with jackets laying around");
         r16 = new Room("in a room with a staircase leading up");
         
+        Room m1;
+        m1 = new Room("in a room with a staircase leading down");
+        
         // initialise room exits
-        cell.setExits(null, null, r2, null);
-        r1.setExits(null, null, r9, r2);
-        r2.setExits(cell, r3, r5, r1);
-        r3.setExits(null, null, null, r2);
-        r4.setExits(null, null, r8, null);
-        r5.setExits(r2, r6, r10, null);
-        r6.setExits(null, r7, null, r5);
-        r7.setExits(null, null, r11, r6);
-        r8.setExits(r4, null, r12, null);
-        r9.setExits(r1, r10, r13, null);
-        r10.setExits(r5, null, null, r9);
-        r11.setExits(r7, r12, r16, null);
-        r12.setExits(r8, null, null, r11);
-        r13.setExits(r9, r14, null, null);
-        r14.setExits(null, null, r15, r13);
-        r15.setExits(r14, r16, null, null);
-        r16.setExits(r11, null, null, r15);
+       cell.setExits("south", r2);
+       
+       r1.setExits("east", r2);
+       r1.setExits("south", r9);
+       
+       r2.setExits("north", cell);
+       r2.setExits("east", r3);
+       r2.setExits("south", r5);
+       r2.setExits("west", r1);
+       
+       r3.setExits("west", r2);
+       
+       r4.setExits("south", r8);
+       
+       r5.setExits("north", r2);
+       r5.setExits("east", r6);
+       r5.setExits("south", r10);
+       
+       r6.setExits("east", r7);
+       r6.setExits("west", r5);
+       
+       r7.setExits("south", r11);
+       r7.setExits("west", r6);
+       
+       r8.setExits("north", r4);
+       r8.setExits("south", r12);
+       
+       r9.setExits("north", r1);
+       r9.setExits("east", r10);
+       r9.setExits("south", r13);
+       
+       r10.setExits("north", r5);
+       r10.setExits("south", r14);
+       r10.setExits("west", r9);
+       
+       r11.setExits("north", r7);
+       r11.setExits("east", r12);
+       r11.setExits("south", r16);
+       
+       r12.setExits("north", r8);
+       r12.setExits("west", r11);
+       
+       r13.setExits("north", r9);
+       r13.setExits("east", r14);
+       
+       r14.setExits("south", r15);
+       r14.setExits("west", r13);
+       
+       r15.setExits("north", r14);
+       r15.setExits("east", r16);
+       
+       r16.setExits("north", r11);
+       r16.setExits("west", r15);
+       r16.setExits("up", m1);
+       
+       m1.setExits("down", r16);
+        
+       
         
         
 
@@ -156,23 +203,12 @@ public class Game
         System.out.println("   go quit help");
     }
     
+    /**
+     * Prints details of current exits
+     */
     private void printLocationInfo()
     {
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
+        System.out.println("You are " + currentRoom.getLongDescription());              
     }
 
     /** 
